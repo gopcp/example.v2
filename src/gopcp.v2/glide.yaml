@@ -1,0 +1,9 @@
+package: gopcp.v2
+import:
+- package: github.com/PuerkitoBio/goquery
+  version: ^1.0.1
+- package: github.com/Sirupsen/logrus
+  version: ^0.11.0
+- package: golang.org/x/net
+  subpackages:
+  - publicsuffix
