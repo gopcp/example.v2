@@ -3,6 +3,12 @@
 *.a
 *.so
 
+# Executable files
+src/gopcp.v2/chapter6/webcrawler/examples/finder/finder
+
+# Output files & folders
+src/gopcp.v2/chapter6/webcrawler/examples/finder/pictures/
+
 # Folders
 _obj
 _test
@@ -22,3 +28,6 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+# Mac
+.DS_Store
