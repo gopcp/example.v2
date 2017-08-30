@@ -56,9 +56,7 @@ func (gen *mySNGenertor) Max() uint64 {
 }
 
 func (gen *mySNGenertor) Next() uint64 {
-	gen.lock.RLock()
-	defer gen.lock.RUnlock()
-	return gen.next
+	return atomic.LoadUint64(&gen.next)
 }
 
 func (gen *mySNGenertor) CycleCount() uint64 {
