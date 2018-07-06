@@ -113,6 +113,7 @@ func (m *myModule) IncrCalledCount() {
 func (m *myModule) IncrAcceptedCount() {
 	atomic.AddUint64(&m.acceptedCount, 1)
 }
+
 func (m *myModule) IncrCompletedCount() {
 	atomic.AddUint64(&m.completedCount, 1)
 }
