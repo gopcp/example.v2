@@ -42,10 +42,6 @@ func TestNew(t *testing.T) {
 		t.Fatalf("Inconsistent called count for internal module: expected: %d, actual: %d",
 			0, mi.CalledCount())
 	}
-	if mi.CalledCount() != 0 {
-		t.Fatalf("Inconsistent called count for internal module: expected: %d, actual: %d",
-			0, mi.CalledCount())
-	}
 	if mi.AcceptedCount() != 0 {
 		t.Fatalf("Inconsistent accepted count for internal module: expected: %d, actual: %d",
 			0, mi.AcceptedCount())
