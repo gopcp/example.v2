@@ -29,7 +29,7 @@ func TestNew(t *testing.T) {
 			mid, p.ID())
 	}
 	if len(p.ItemProcessors()) != len(processors) {
-		t.Fatalf("Inconsistent item processor number for pipeline: expected: %sd, actual: %d",
+		t.Fatalf("Inconsistent item processor number for pipeline: expected: %d, actual: %d",
 			len(p.ItemProcessors()), len(processors))
 	}
 	// 测试参数有误的情况。
@@ -42,7 +42,7 @@ func TestNew(t *testing.T) {
 	processors = append(processors, nil)
 	p, err = New(mid, processors, nil)
 	if err == nil {
-		t.Fatal("No error when create a pipeline with nil processor!")
+		t.Fatal("No error when create a pipeline with nil processors!")
 	}
 	processorsList := [][]module.ProcessItem{
 		nil,
