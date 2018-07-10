@@ -73,7 +73,8 @@ func checkStatus(
 			err = genError("the scheduler has been started!")
 		}
 	case SCHED_STATUS_STOPPING:
-		if currentStatus != SCHED_STATUS_STARTED {
+		switch currentStatus {
+		case SCHED_STATUS_STARTED:
 			err = genError("the scheduler has not been started!")
 		}
 	default:
