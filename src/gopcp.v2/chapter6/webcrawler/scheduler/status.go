@@ -103,6 +103,6 @@ func GetStatusDescription(status Status) string {
 	case SCHED_STATUS_STOPPED:
 		return "stopped"
 	default:
-		return "unkown"
+		return "unknown"
 	}
 }
