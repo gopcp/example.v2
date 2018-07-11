@@ -41,7 +41,7 @@ type mySchedSummary struct {
 	dataArgs DataArgs
 	// moduleArgs 代表组件相关参数的容器实例。
 	moduleArgs ModuleArgs
-	// maxDepth 爬取的最大深度。
+	// maxDepth 代表爬取的最大深度。
 	maxDepth uint32
 	// sched 代表调度器实例。
 	sched *myScheduler
