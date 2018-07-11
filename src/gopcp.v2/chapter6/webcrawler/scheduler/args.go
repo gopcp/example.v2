@@ -100,7 +100,7 @@ func (args *DataArgs) Check() error {
 // ModuleArgsSummary 代表组件相关的参数容器的摘要类型。
 type ModuleArgsSummary struct {
 	DownloaderListSize int `json:"downloader_list_size"`
-	AnalyzerListSize   int `json:"analyzer_List_size"`
+	AnalyzerListSize   int `json:"analyzer_list_size"`
 	PipelineListSize   int `json:"pipeline_list_size"`
 }
 
