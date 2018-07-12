@@ -150,7 +150,7 @@ func (sched *myScheduler) Init(
 func (sched *myScheduler) Start(firstHTTPReq *http.Request) (err error) {
 	defer func() {
 		if p := recover(); p != nil {
-			errMsg := fmt.Sprintf("Fatal scheduler error: %sched", p)
+			errMsg := fmt.Sprintf("Fatal scheduler error: %s", p)
 			logger.Fatal(errMsg)
 			err = genError(errMsg)
 		}
