@@ -507,7 +507,7 @@ func (sched *myScheduler) pickOne(item module.Item) {
 	}
 	m, err := sched.registrar.Get(module.TYPE_PIPELINE)
 	if err != nil || m == nil {
-		errMsg := fmt.Sprintf("couldn't get a pipeline pipline: %s", err)
+		errMsg := fmt.Sprintf("couldn't get a pipeline: %s", err)
 		sendError(errors.New(errMsg), "", sched.errorBufferPool)
 		sendItem(item, sched.itemBufferPool)
 		return
