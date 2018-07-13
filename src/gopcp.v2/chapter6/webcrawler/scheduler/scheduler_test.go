@@ -291,7 +291,7 @@ func TestSchedSimple(t *testing.T) {
 	var count int
 	max := 5
 	tickCh := time.Tick(time.Second)
-	for _ = range tickCh {
+	for range tickCh {
 		if sched.Idle() {
 			count++
 			logger.Infof("Increase idle count, and value is %d.", count)
