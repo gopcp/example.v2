@@ -132,7 +132,7 @@ func TestAnalyze(t *testing.T) {
 	if len(errs) == 0 {
 		t.Fatal("No error when download with nil response!")
 	}
-	// 测HTTP响应为nil的情况。
+	// 测试HTTP响应为nil的情况。
 	resp := module.NewResponse(nil, 0)
 	_, errs = a.Analyze(resp)
 	if len(errs) == 0 {

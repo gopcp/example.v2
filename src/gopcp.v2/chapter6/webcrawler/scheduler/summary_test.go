@@ -128,7 +128,7 @@ func TestSummaryStruct(t *testing.T) {
 	copy(another.Pipelines, one.Pipelines)
 	another.Pipelines[0] = module.SummaryStruct{}
 	if one.Same(another) {
-		t.Fatalf("Same scheduler summaries with different item pipeline summary!")
+		t.Fatalf("Same scheduler summaries with different item pipelines summary!")
 	}
 	another.Pipelines = make([]module.SummaryStruct, len(one.Pipelines))
 	copy(another.Pipelines, one.Pipelines)

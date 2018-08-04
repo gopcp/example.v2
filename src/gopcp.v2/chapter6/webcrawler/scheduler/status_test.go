@@ -156,7 +156,7 @@ func TestGetStatusDescription(t *testing.T) {
 		SCHED_STATUS_STARTED:       "started",
 		SCHED_STATUS_STOPPING:      "stopping",
 		SCHED_STATUS_STOPPED:       "stopped",
-		Status(7):                  "unkown",
+		Status(7):                  "unknown",
 	}
 	for status, expectedDesc := range statusMap {
 		desc := GetStatusDescription(status)

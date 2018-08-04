@@ -46,7 +46,7 @@ type fakeModule struct {
 	mid MID
 	// score 代表组件评分。
 	score uint64
-	// score 代表组件基础计数。
+	// count 代表组件基础计数。
 	count uint64
 	// scoreCalculator 代表评分计算器。
 	scoreCalculator CalculateScore
@@ -159,7 +159,7 @@ func NewFakePipeline(mid MID, scoreCalculator CalculateScore) Pipeline {
 	}
 }
 
-// fakePipeline 代表条目处理管道的的实现类型。
+// fakePipeline 代表条目处理管道的实现类型。
 type fakePipeline struct {
 	// fakeModule 代表仿造的组件实例。
 	fakeModule
