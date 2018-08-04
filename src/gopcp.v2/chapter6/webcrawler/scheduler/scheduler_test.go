@@ -200,11 +200,11 @@ func TestSchedStatus(t *testing.T) {
 		t.Fatal("No error when stop scheduler before initialize!")
 	}
 	// 测试未初始化状态下的初始化。
-	if err := sched.Init(requestArgs, dataArgs, moduleArgs); err != nil {
+	if err = sched.Init(requestArgs, dataArgs, moduleArgs); err != nil {
 		t.Fatalf("An error occurs when initializing scheduler: %s", err)
 	}
 	// 测试重复初始化。
-	if err := sched.Init(requestArgs, dataArgs, moduleArgs); err != nil {
+	if err = sched.Init(requestArgs, dataArgs, moduleArgs); err != nil {
 		t.Fatalf("An error occurs when repeatedly initializing scheduler: %s", err)
 	}
 	// 测试已初始化状态下的停止。
@@ -220,7 +220,7 @@ func TestSchedStatus(t *testing.T) {
 		t.Fatal("No error when repeatedly start scheduler!")
 	}
 	// 测试已启动状态下的初始化。
-	if err := sched.Init(requestArgs, dataArgs, moduleArgs); err == nil {
+	if err = sched.Init(requestArgs, dataArgs, moduleArgs); err == nil {
 		t.Fatal("No error when initialize scheduler after start!")
 	}
 	// 测试已启动状态下的停止。
@@ -291,7 +291,7 @@ func TestSchedSimple(t *testing.T) {
 	var count int
 	max := 5
 	tickCh := time.Tick(time.Second)
-	for _ = range tickCh {
+	for range tickCh {
 		if sched.Idle() {
 			count++
 			logger.Infof("Increase idle count, and value is %d.", count)
