@@ -41,7 +41,7 @@ func TestNew(t *testing.T) {
 			mid, a.ID())
 	}
 	if len(a.RespParsers()) != len(parsers) {
-		t.Fatalf("Inconsistent response parser number for pipeline: expected: %sd, actual: %d",
+		t.Fatalf("Inconsistent response parser number for pipeline: expected: %d, actual: %d",
 			len(a.RespParsers()), len(parsers))
 	}
 	// 测试参数有误的情况。
