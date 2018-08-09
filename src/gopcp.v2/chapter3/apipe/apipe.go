@@ -51,6 +51,7 @@ func runCmd() {
 		fmt.Printf("Error: Couldn't obtain the stdout pipe for command No.0: %s\n", err)
 		return
 	}
+	defer stdout0.Close()
 	if err := cmd0.Start(); err != nil {
 		fmt.Printf("Error: The command No.0 can not be startup: %s\n", err)
 		return
