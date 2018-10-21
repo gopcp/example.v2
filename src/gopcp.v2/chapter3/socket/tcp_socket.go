@@ -98,6 +98,7 @@ func serverGo() {
 		conn, err := listener.Accept() // 阻塞直至新连接到来。
 		if err != nil {
 			printServerLog("Accept Error: %s", err)
+			continue
 		}
 		printServerLog("Established a connection with a client application. (remote address: %s)",
 			conn.RemoteAddr())

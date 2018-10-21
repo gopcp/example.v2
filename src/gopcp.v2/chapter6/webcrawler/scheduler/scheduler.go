@@ -150,7 +150,7 @@ func (sched *myScheduler) Init(
 func (sched *myScheduler) Start(firstHTTPReq *http.Request) (err error) {
 	defer func() {
 		if p := recover(); p != nil {
-			errMsg := fmt.Sprintf("Fatal scheduler error: %sched", p)
+			errMsg := fmt.Sprintf("Fatal scheduler error: %s", p)
 			logger.Fatal(errMsg)
 			err = genError(errMsg)
 		}
@@ -507,7 +507,7 @@ func (sched *myScheduler) pickOne(item module.Item) {
 	}
 	m, err := sched.registrar.Get(module.TYPE_PIPELINE)
 	if err != nil || m == nil {
-		errMsg := fmt.Sprintf("couldn't get a pipeline pipline: %s", err)
+		errMsg := fmt.Sprintf("couldn't get a pipeline: %s", err)
 		sendError(errors.New(errMsg), "", sched.errorBufferPool)
 		sendItem(item, sched.itemBufferPool)
 		return

@@ -41,7 +41,7 @@ func TestNew(t *testing.T) {
 			mid, a.ID())
 	}
 	if len(a.RespParsers()) != len(parsers) {
-		t.Fatalf("Inconsistent response parser number for pipeline: expected: %sd, actual: %d",
+		t.Fatalf("Inconsistent response parser number for pipeline: expected: %d, actual: %d",
 			len(a.RespParsers()), len(parsers))
 	}
 	// 测试参数有误的情况。
@@ -132,7 +132,7 @@ func TestAnalyze(t *testing.T) {
 	if len(errs) == 0 {
 		t.Fatal("No error when download with nil response!")
 	}
-	// 测HTTP响应为nil的情况。
+	// 测试HTTP响应为nil的情况。
 	resp := module.NewResponse(nil, 0)
 	_, errs = a.Analyze(resp)
 	if len(errs) == 0 {

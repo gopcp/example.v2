@@ -125,7 +125,7 @@ func genDataArgs(
 	return genDataArgsByDetail(values)
 }
 
-// genDataArgs 用于根据细致的参数生成数据参数的实例。
+// genDataArgsByDetail 用于根据细致的参数生成数据参数的实例。
 func genDataArgsByDetail(values [8]uint32) DataArgs {
 	return DataArgs{
 		ReqBufferCap:         values[0],

@@ -83,7 +83,7 @@ func TestTypeGetLetter(t *testing.T) {
 			t.Fatalf("Couldn't get letter via type %q!", mt)
 		}
 		if letter1 != letter {
-			t.Fatalf("Inconsistent module type etter: expected: %s, actual: %s (type: %s)",
+			t.Fatalf("Inconsistent module type letter: expected: %s, actual: %s (type: %s)",
 				letter, letter1, mt)
 		}
 	}
