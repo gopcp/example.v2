@@ -96,9 +96,6 @@ func (registrar *myRegistrar) Get(moduleType Type) (Module, error) {
 	var selectedModule Module
 	for _, module := range modules {
 		SetScore(module)
-		if err != nil {
-			return nil, err
-		}
 		score := module.Score()
 		if minScore == 0 || score < minScore {
 			selectedModule = module
