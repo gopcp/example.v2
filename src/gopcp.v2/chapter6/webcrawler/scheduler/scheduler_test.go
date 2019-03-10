@@ -47,7 +47,7 @@ func TestSchedInit(t *testing.T) {
 		dataArgs,
 		moduleArgs)
 	if err == nil {
-		t.Fatalf("No error when initialize scheduler with illegal request arguments %s!",
+		t.Fatalf("No error when initialize scheduler with illegal request arguments %+v!",
 			invalidRequestArgs)
 	}
 	// 测试数据参数异常时的情况。
@@ -58,7 +58,7 @@ func TestSchedInit(t *testing.T) {
 		invalidDataArgs,
 		moduleArgs)
 	if err == nil {
-		t.Fatalf("No error when initialize scheduler with illegal data arguments %s!",
+		t.Fatalf("No error when initialize scheduler with illegal data arguments %+v!",
 			invalidDataArgs)
 	}
 	// 测试组件参数异常时的情况。

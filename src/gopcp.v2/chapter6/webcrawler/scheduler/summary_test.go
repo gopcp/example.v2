@@ -199,7 +199,7 @@ func TestSummaryString(t *testing.T) {
     },
     "module_args": {
         "downloader_list_size": 2,
-        "analyzer_List_size": 2,
+        "analyzer_list_size": 2,
         "pipeline_list_size": 1
     },
     "status": "initialized",
