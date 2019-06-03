@@ -9,7 +9,9 @@ import (
 )
 
 func main() {
-	runCmd()
+	runCmd(false) // not use bufio
+	fmt.Println()
+	runCmd(true) // use bufio
 	fmt.Println()
 	runCmdWithPipe()
 }
@@ -42,8 +44,7 @@ func runCmdWithPipe() {
 	fmt.Printf("%s\n", outputBuf2.Bytes())
 }
 
-func runCmd() {
-	useBufferedIO := false
+func runCmd(useBufferedIO bool) {
 	fmt.Println("Run command `echo -n \"My first command comes from golang.\"`: ")
 	cmd0 := exec.Command("echo", "-n", "My first command comes from golang.")
 	stdout0, err := cmd0.StdoutPipe()
@@ -63,6 +64,7 @@ func runCmd() {
 			n, err := stdout0.Read(tempOutput)
 			if err != nil {
 				if err == io.EOF {
+					fmt.Printf("%s\n", outputBuf0.String())
 					break
 				} else {
 					fmt.Printf("Error: Couldn't read data from the pipe: %s\n", err)
