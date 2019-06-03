@@ -64,7 +64,6 @@ func runCmd(useBufferedIO bool) {
 			n, err := stdout0.Read(tempOutput)
 			if err != nil {
 				if err == io.EOF {
-					fmt.Printf("%s\n", outputBuf0.String())
 					break
 				} else {
 					fmt.Printf("Error: Couldn't read data from the pipe: %s\n", err)
