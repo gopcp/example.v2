@@ -102,11 +102,11 @@ func testRW(path string, dataLen uint32, max int, t *testing.T) {
 			defer wg.Done()
 			var prevRSN int64 = -1
 			for i := 0; i < max; i++ {
-				rsn, date, err := dataFile.Read()
+				rsn, data, err := dataFile.Read()
 				if err != nil {
 					t.Fatalf("Unexpected writing error: %s\n", err)
 				}
-				if date == nil {
+				if data == nil {
 					t.Fatalf("Unnormal data!")
 				}
 				if prevRSN >= 0 && rsn <= prevRSN {
