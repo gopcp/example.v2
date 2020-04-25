@@ -103,5 +103,5 @@ func (cmap *myConcurrentMap) findSegment(keyHash uint64) Segment {
 	} else {
 		keyHash32 = uint32(keyHash)
 	}
-	return cmap.segments[int(keyHash32>>16)%(cmap.concurrency-1)]
+	return cmap.segments[int(keyHash32>>16)%(cmap.concurrency)]
 }
