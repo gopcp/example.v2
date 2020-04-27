@@ -97,11 +97,11 @@ func (cmap *myConcurrentMap) findSegment(keyHash uint64) Segment {
 	if cmap.concurrency == 1 {
 		return cmap.segments[0]
 	}
-	var keyHash32 uint32
+	var keyHashHigh int
 	if keyHash > math.MaxUint32 {
-		keyHash32 = uint32(keyHash >> 32)
+		keyHashHigh = int(keyHash >> 48)
 	} else {
-		keyHash32 = uint32(keyHash)
+		keyHashHigh = int(keyHash >> 16)
 	}
-	return cmap.segments[int(keyHash32>>16)%(cmap.concurrency-1)]
+	return cmap.segments[keyHashHigh%cmap.concurrency]
 }
