@@ -88,10 +88,11 @@ func (analyzer *myAnalyzer) Analyze(
 		reqURL, respDepth)
 
 	// 解析HTTP响应。
-	if httpResp.Body != nil {
-		defer httpResp.Body.Close()
+	originalRespBody := httpResp.Body
+	if originalRespBody != nil {
+		defer originalRespBody.Close()
 	}
-	multipleReader, err := reader.NewMultipleReader(httpResp.Body)
+	multipleReader, err := reader.NewMultipleReader(originalRespBody)
 	if err != nil {
 		errorList = append(errorList, genError(err.Error()))
 		return
