@@ -43,9 +43,10 @@ func (array *intArray2) Set(index uint32, elem int) (old int, err error) {
 	for { // 乐观的自旋锁。
 		v = atomic.LoadUint64(&array.version)
 		copy(newArray, array.val.Load().([]int))
+		old = newArray[index]
 		newArray[index] = elem
 		if atomic.CompareAndSwapUint64(&array.version, v, v+1) {
-			old = newArray[index]
+			// 在此处（上下两行代码之间）仍然可能发生中断，但是产生并发安全问题的概率不大。
 			array.val.Store(newArray)
 			break
 		}
