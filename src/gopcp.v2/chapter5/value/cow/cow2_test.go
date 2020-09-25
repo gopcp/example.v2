@@ -5,10 +5,10 @@ import (
 	"testing"
 )
 
-func TestConcurrentArray(t *testing.T) {
+func TestConcurrentArray2(t *testing.T) {
 	arrayLength := uint32(1000)
-	t.Run("all", func(t *testing.T) {
-		array := NewConcurrentArray(arrayLength)
+	t.Run("all2", func(t *testing.T) {
+		array := NewConcurrentArray2(arrayLength)
 		if array == nil {
 			t.Fatalf("Unnormal array!")
 		}
@@ -16,38 +16,45 @@ func TestConcurrentArray(t *testing.T) {
 			t.Fatalf("Incorrect array length!")
 		}
 		maxI := uint32(2000)
-		t.Run("Set", func(t *testing.T) {
-			testSet(array, maxI, t)
+		t.Run("Set2", func(t *testing.T) {
+			testSet2(array, maxI, t)
 		})
-		t.Run("Get", func(t *testing.T) {
-			testGet(array, maxI, t)
+		t.Run("Get2", func(t *testing.T) {
+			testGet2(array, maxI, t)
 		})
 	})
 }
 
-func testSet(array ConcurrentArray, maxI uint32, t *testing.T) {
+func testSet2(array ConcurrentArray2, maxI uint32, t *testing.T) {
 	arrayLen := array.Len()
 	var wg sync.WaitGroup
 	wg.Add(int(maxI))
+	errChan := make(chan error, maxI)
 	for i := uint32(0); i < maxI; i++ {
 		go func(i uint32) {
 			defer wg.Done()
+			var err error
+			defer func() {
+				errChan <- err
+			}()
 			for j := uint32(0); j < arrayLen; j++ {
-				err := array.Set(j, int(j*i))
-				if uint32(j) >= arrayLen && err == nil {
-					t.Fatalf("Unexpected nil error! (index: %d)", j)
-				} else {
-					if err != nil {
-						t.Fatalf("Unexpected error: %s (index: %d)", err, j)
-					}
+				_, err = array.Set(j, int(j*i))
+				if err != nil {
+					break
 				}
 			}
 		}(i)
 	}
 	wg.Wait()
+	close(errChan)
+	for err := range errChan {
+		if err != nil {
+			t.Fatalf("Unexpected error: %s", err)
+		}
+	}
 }
 
-func testGet(array ConcurrentArray, maxI uint32, t *testing.T) {
+func testGet2(array ConcurrentArray2, maxI uint32, t *testing.T) {
 	arrayLen := array.Len()
 	intMax := int((maxI - 1) * (arrayLen - 1))
 	for i := uint32(0); i < arrayLen; i++ {
@@ -60,4 +67,8 @@ func testGet(array ConcurrentArray, maxI uint32, t *testing.T) {
 				elem, i, intMax)
 		}
 	}
+}
+
+func testSetAndGet2(array ConcurrentArray2, maxI uint32, t *testing.T) {
+	//TODO
 }
