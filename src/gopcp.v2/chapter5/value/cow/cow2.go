@@ -3,6 +3,7 @@ package cow
 import (
 	"errors"
 	"fmt"
+	"runtime"
 	"sync/atomic"
 )
 
@@ -16,14 +17,14 @@ type ConcurrentArray2 interface {
 	Len() uint32
 }
 
-// intArray2 代表ConcurrentArray接口的实现类型。
+// intArray2 代表ConcurrentArray2接口的实现类型。
 type intArray2 struct {
-	length  uint32
-	val     atomic.Value
-	version uint64
+	length uint32
+	val    atomic.Value
+	status uint32 // 0：可读可写；1：只读。
 }
 
-// NewConcurrentArray2 会创建一个ConcurrentArray类型值。
+// NewConcurrentArray2 会创建一个ConcurrentArray2类型值。
 func NewConcurrentArray2(length uint32) ConcurrentArray2 {
 	array := intArray2{}
 	array.length = length
@@ -38,20 +39,19 @@ func (array *intArray2) Set(index uint32, elem int) (old int, err error) {
 	if err = array.checkValue(); err != nil {
 		return
 	}
-	newArray := make([]int, array.length)
-	var v uint64
-	for { // 乐观的自旋锁。
-		v = atomic.LoadUint64(&array.version)
+	for { // 一个简易的自旋锁。
+		if !atomic.CompareAndSwapUint32(&array.status, 0, 1) {
+			runtime.Gosched()
+			continue
+		}
+		defer atomic.StoreUint32(&array.status, 0)
+		newArray := make([]int, array.length)
 		copy(newArray, array.val.Load().([]int))
 		old = newArray[index]
 		newArray[index] = elem
-		if atomic.CompareAndSwapUint64(&array.version, v, v+1) {
-			// 在此处（上下两行代码之间）仍然可能发生中断，但是产生并发安全问题的概率不大。
-			array.val.Store(newArray)
-			break
-		}
+		array.val.Store(newArray)
+		return
 	}
-	return
 }
 
 func (array *intArray2) Get(index uint32) (elem int, err error) {

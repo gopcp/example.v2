@@ -6,13 +6,13 @@ import (
 )
 
 func TestConcurrentArray(t *testing.T) {
-	arrayLength := uint32(1000)
+	arrayLen := uint32(500)
 	t.Run("all", func(t *testing.T) {
-		array := NewConcurrentArray(arrayLength)
+		array := NewConcurrentArray(arrayLen)
 		if array == nil {
 			t.Fatalf("Unnormal array!")
 		}
-		if array.Len() != arrayLength {
+		if array.Len() != arrayLen {
 			t.Fatalf("Incorrect array length!")
 		}
 		maxI := uint32(2000)

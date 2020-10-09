@@ -6,13 +6,13 @@ import (
 )
 
 func TestConcurrentArray2(t *testing.T) {
-	arrayLength := uint32(1000)
+	arrayLen := uint32(500)
 	t.Run("all2", func(t *testing.T) {
-		array := NewConcurrentArray2(arrayLength)
+		array := NewConcurrentArray2(arrayLen)
 		if array == nil {
 			t.Fatalf("Unnormal array!")
 		}
-		if array.Len() != arrayLength {
+		if array.Len() != arrayLen {
 			t.Fatalf("Incorrect array length!")
 		}
 		maxI := uint32(2000)
@@ -21,6 +21,11 @@ func TestConcurrentArray2(t *testing.T) {
 		})
 		t.Run("Get2", func(t *testing.T) {
 			testGet2(array, maxI, t)
+		})
+		t.Run("SetAndGet2", func(t *testing.T) {
+			for i := uint32(0); i < arrayLen; i++ {
+				testSetAndGet2(arrayLen, t)
+			}
 		})
 	})
 }
@@ -69,6 +74,29 @@ func testGet2(array ConcurrentArray2, maxI uint32, t *testing.T) {
 	}
 }
 
-func testSetAndGet2(array ConcurrentArray2, maxI uint32, t *testing.T) {
-	//TODO
+func testSetAndGet2(maxI uint32, t *testing.T) {
+	array := NewConcurrentArray2(maxI)
+	var wg sync.WaitGroup
+	errChan := make(chan error, maxI)
+	for i := uint32(0); i < maxI; i++ {
+		wg.Add(1)
+		go func(index uint32, t1 *testing.T) {
+			defer wg.Done()
+			var err error
+			defer func() {
+				errChan <- err
+			}()
+			_, err = array.Set(index, int(index))
+		}(i, t)
+	}
+	wg.Wait()
+	for j := uint32(0); j < maxI; j++ {
+		item, err := array.Get(j)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if item != int(j) {
+			t.Fatalf("Fail to set array[%d] = %d", j, item)
+		}
+	}
 }
