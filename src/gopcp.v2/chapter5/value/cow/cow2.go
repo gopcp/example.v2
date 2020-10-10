@@ -67,14 +67,14 @@ func (seg *segment) get(index int) (elem int, err error) {
 	return
 }
 
-// myIntArray 代表ConcurrentArray2接口的实现类型。
+// myIntArray 代表 ConcurrentIntArray 接口的实现类型。
 type myIntArray struct {
 	length    int        // 元素总数量。
 	segLenStd int        // 单个内部段的标准长度。
 	segments  []*segment // 内部段列表。
 }
 
-// NewConcurrentIntArray 会创建一个ConcurrentArray2类型值。
+// NewConcurrentIntArray 会创建一个 ConcurrentIntArray 类型值。
 func NewConcurrentIntArray(length int) ConcurrentIntArray {
 	if length < 0 {
 		length = 0
