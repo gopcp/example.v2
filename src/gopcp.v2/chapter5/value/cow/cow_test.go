@@ -6,7 +6,7 @@ import (
 )
 
 func TestConcurrentArray(t *testing.T) {
-	arrayLen := uint32(500)
+	arrayLen := uint32(1000)
 	t.Run("all", func(t *testing.T) {
 		array := NewConcurrentArray(arrayLen)
 		if array == nil {
