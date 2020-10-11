@@ -30,7 +30,7 @@ func (seg *segment) init(length int) {
 
 func (seg *segment) checkIndex(index int) error {
 	if index < 0 || index >= seg.length {
-		return fmt.Errorf("index out of range [0, %d)", seg.length)
+		return fmt.Errorf("index out of range [0, %d) in segment", seg.length)
 	}
 	return nil
 }
