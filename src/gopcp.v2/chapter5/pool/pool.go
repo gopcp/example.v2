@@ -30,7 +30,17 @@ func main() {
 
 	// 垃圾回收对临时对象池的影响。
 	debug.SetGCPercent(100)
+
 	runtime.GC()
+	// 在新版本（起码 1.15 及以后）的 Go 当中，sync.Pool 里的临时对象需要两次 GC 才会被真正清除掉。
+	// 只一次 GC 的话只会让其中的临时对象被“打上记号”。
+	// 更具体的说，只做一次 GC 只会使得 sync.Pool 里的临时对象被移动到池中的“备用区域”（详见 victim 字段）。
+	// 在我们调用 sync.Pool 的 Get 方法时，如果 sync.Pool 的“本地区域”（详见 local 字段）当中没有可用的临时对象，
+	// 那么 sync.Pool 会试图从这个“备用区域”中获取临时对象。
+	// 如果“备用区域”也没有可用的临时对象，sync.Pool 才会去调用 New 函数。
+	// 所以，这里的例子需要再添加一行对 runtime.GC() 函数的调用，才能使它的结果与最初的相同，并起到准确示范的作用。
+	runtime.GC()
+
 	v3 := pool.Get()
 	fmt.Printf("Value 3: %v\n", v3)
 	pool.New = nil
