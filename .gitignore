@@ -9,6 +9,9 @@ src/gopcp.v2/chapter6/webcrawler/examples/finder/finder
 # Output files & folders
 src/gopcp.v2/chapter6/webcrawler/examples/finder/pictures/
 
+# Profile files & folders
+src/pprof/
+
 # Folders
 _obj
 _test
