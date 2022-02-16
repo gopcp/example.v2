@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"runtime"
 )
 
 func main() {
@@ -17,7 +18,12 @@ func main() {
 		fmt.Printf("Found an error : %s\n", err)
 	} else {
 		// 对 input 进行切片操作，去掉内容中最后一个字节 \n 。
-		input = input[:len(input)-1]
+		if runtime.GOOS == "windows" {
+			// windows的换行符是 \r\n 。
+			input = input[:len(input)-2]
+		} else {
+			input = input[:len(input)-1]
+		}
 		fmt.Printf("Hello, %s!\n", input)
 	}
 }
