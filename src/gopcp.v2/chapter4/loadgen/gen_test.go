@@ -21,7 +21,6 @@ func TestStart(t *testing.T) {
 	err := server.Listen(serverAddr)
 	if err != nil {
 		t.Fatalf("TCP Server startup failing! (addr=%s)!\n", serverAddr)
-		t.FailNow()
 	}
 
 	// 初始化载荷发生器。
@@ -38,7 +37,6 @@ func TestStart(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Load generator initialization failing: %s\n",
 			err)
-		t.FailNow()
 	}
 
 	// 开始！
@@ -80,7 +78,6 @@ func TestStop(t *testing.T) {
 	err := server.Listen(serverAddr)
 	if err != nil {
 		t.Fatalf("TCP Server startup failing! (addr=%s)!\n", serverAddr)
-		t.FailNow()
 	}
 
 	// 初始化载荷发生器。
@@ -97,7 +94,6 @@ func TestStop(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Load generator initialization failing: %s.\n",
 			err)
-		t.FailNow()
 	}
 
 	// 开始！
