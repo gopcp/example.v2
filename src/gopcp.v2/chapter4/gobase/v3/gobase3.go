@@ -2,16 +2,16 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
 func main() {
+
+	sync := make(chan int)
 	name := "Eric"
 	go func() {
 		fmt.Printf("Hello, %s!\n", name)
+		sync <- 5
 	}()
 	name = "Harry"
-	time.Sleep(time.Millisecond)
-	// time.Sleep(time.Millisecond)
-	// name = "Harry"
+	<-sync
 }
