@@ -13,10 +13,12 @@ var ptr bool = false
 func main() {
 	syncChan1 := make(chan struct{}, 1)
 	syncChan2 := make(chan struct{}, 2)
+	letterSlice := []string{"a", "b", "c", "d", "e", "f", "g", "h", "i"}
 	flag <- "S"
 	go func() { // 用于演示接收操作。
 		<-syncChan1
 		i := 0
+		count := 0
 		fmt.Println("Receiver Begin... [receiver]")
 		for {
 
@@ -26,7 +28,10 @@ func main() {
 				if elem, ok := <-strChan; ok {
 					fmt.Println("Received:", elem, "[receiver]")
 					i++
-					if i == 3 {
+					count++
+					if count == len(letterSlice) {
+						break
+					} else if i == 3 {
 						i = 0
 						flag <- "S"
 						goChan <- "GO"
@@ -46,7 +51,7 @@ func main() {
 	}()
 	go func() { // 用于演示发送操作。
 		i := 0
-		letterSlice := []string{"a", "b", "c", "d", "e", "f", "g", "h"}
+
 		fmt.Println("Send Begin... [sender]")
 		for index, elem := range letterSlice {
 			//time.Sleep(time.Second)
