@@ -56,7 +56,7 @@ func testGet(array ConcurrentArray, maxI uint32, t *testing.T) {
 			t.Fatalf("Unexpected error: %s (index: %d)", err, i)
 		}
 		if elem < 0 || elem > intMax {
-			t.Fatalf("Incorect element: %d! (index: %d, expect max: %d)",
+			t.Fatalf("Incorrect element: %d! (index: %d, expect max: %d)",
 				elem, i, intMax)
 		}
 	}
